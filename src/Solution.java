@@ -2,9 +2,7 @@ import datastruct.ListNode;
 import datastruct.TreeNode;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Stack;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -20,6 +18,67 @@ public class Solution {
     }
 
     /**
+     * 输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历的结果。如果是则输出Yes,否则输出No。假设输入的数组的任意两个数字都互不相同。
+     *
+     * @param sequence
+     * @return
+     */
+    public boolean VerifySquenceOfBST(int[] sequence) {
+        if (sequence == null || sequence.length == 0) return false;
+        return judge(sequence,0, sequence.length-1);
+    }
+
+    private boolean judge(int[] sequence, int left,int right) {
+        if(left>=right)return true;
+        int i = left;
+        //找到左节点
+        while (i<right&&sequence[i] < sequence[right]) ++i;
+
+        int j = i;
+        while (j < right) {
+            ++j;
+            if (sequence[j] < sequence[right]) return false;
+        }
+        return judge(sequence,left,i-1)&&judge(sequence,i,right-1);
+    }
+
+    @Test
+    public void testVerifySquenceOfBST() {
+        assertTrue(getInstance().VerifySquenceOfBST(new int[]{2,4,3,6,8,7,5}));
+        assertTrue(!getInstance().VerifySquenceOfBST(new int[]{7,4,6,5}));
+        assertTrue(!getInstance().VerifySquenceOfBST(new int[]{}));
+    }
+
+    /**
+     * 从上往下打印出二叉树的每个节点，同层节点从左至右打印。
+     *
+     * @param root
+     * @return
+     */
+    public ArrayList<Integer> printFromTopToBottom(TreeNode root) {
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        ArrayList<Integer> list = new ArrayList<>();
+        if (root == null) return list;
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            TreeNode node = queue.poll();
+            list.add(node.val);
+            if (node.left != null)
+                queue.add(node.left);
+            if (node.right != null)
+                queue.add(node.right);
+        }
+        return list;
+    }
+
+    @Test
+    public void testPrintFromTopToBottom() {
+        TreeNode root = TreeNode.asTree(new int[]{1, 2, 4, 5, 3, 6, 7}, new int[]{4, 2, 5, 1, 6, 3, 7});
+        System.out.println(Arrays.toString(getInstance().printFromTopToBottom(root).toArray()));
+    }
+
+    /**
      * 输入两个整数序列，第一个序列表示栈的压入顺序，请判断第二个序列是否为该栈的弹出顺序。
      * 假设压入栈的所有数字均不相等。
      * 例如序列1,2,3,4,5是某栈的压入顺序，序列4，5,3,2,1是该压栈序列对应的一个弹出序列，
@@ -30,7 +89,7 @@ public class Solution {
      * @param popA
      * @return
      */
-    public boolean IsPopOrder(int[] pushA, int[] popA) {
+    public boolean isPopOrder(int[] pushA, int[] popA) {
         if (pushA == null || popA == null) return false;
         Stack<Integer> stack = new Stack<>();
         int i = 0;
@@ -42,15 +101,15 @@ public class Solution {
             }
             if (i < pushA.length)
                 stack.push(pushA[i++]);
-            if(i==pushA.length&&!stack.empty()&&stack.peek()!=popA[j])return false;
+            if (i == pushA.length && !stack.empty() && stack.peek() != popA[j]) return false;
         }
-       return  true;
+        return true;
 
     }
 
     @Test
     public void testIsPopOrder() {
-        assertTrue(getInstance().IsPopOrder(new int[]{1, 2, 3, 4, 5}, new int[]{4, 5, 3, 2, 1}));
+        assertTrue(getInstance().isPopOrder(new int[]{1, 2, 3, 4, 5}, new int[]{4, 5, 3, 2, 1}));
     }
 
     /**

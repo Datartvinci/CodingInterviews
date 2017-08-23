@@ -1,4 +1,4 @@
-package datastruct;
+package codeinterview.datastructure;
 
 /**
  * Created by John on 2016/10/15.
@@ -16,7 +16,7 @@ public class TreeNode {
         if (pre == null || in == null) return null;
         return constructCore(pre, 0, pre.length - 1, in, 0, in.length - 1);
     }
-    private static TreeNode constructCore(int[] pre, int preStart, int preEnd, int[] in, int inStart, int inEnd) {
+    public static TreeNode constructCore(int[] pre, int preStart, int preEnd, int[] in, int inStart, int inEnd) {
         if (pre == null || preStart > preEnd || in == null || inStart > inEnd || pre.length <= 0 || in.length <= 0)
             return null;
         TreeNode root = new TreeNode(pre[preStart]);

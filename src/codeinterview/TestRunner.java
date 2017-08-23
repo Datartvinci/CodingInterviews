@@ -1,3 +1,5 @@
+package codeinterview;
+
 import org.junit.Test;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
@@ -16,5 +18,12 @@ public class TestRunner {
         }
         System.out.println(result.wasSuccessful());
      }
+     @Test
+    public void testArray(){
+        Integer[] a=new Integer[20];
+         System.out.println(a.length);
+         System.out.println(a[1]);
+     }
+
 
 }

@@ -1,5 +1,7 @@
-import datastruct.ListNode;
-import datastruct.TreeNode;
+package codeinterview;
+
+import codeinterview.datastructure.ListNode;
+import codeinterview.datastructure.TreeNode;
 import org.junit.Test;
 
 import java.util.*;
@@ -20,33 +22,33 @@ public class Solution {
     /**
      * 输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历的结果。如果是则输出Yes,否则输出No。假设输入的数组的任意两个数字都互不相同。
      *
-     * @param sequence
-     * @return
+     * @param sequence int[]
+     * @return bool
      */
-    public boolean VerifySquenceOfBST(int[] sequence) {
+    public boolean VerifySequenceOfBST(int[] sequence) {
         if (sequence == null || sequence.length == 0) return false;
-        return judge(sequence,0, sequence.length-1);
+        return judge(sequence, 0, sequence.length - 1);
     }
 
-    private boolean judge(int[] sequence, int left,int right) {
-        if(left>=right)return true;
+    private boolean judge(int[] sequence, int left, int right) {
+        if (left >= right) return true;
         int i = left;
         //找到左节点
-        while (i<right&&sequence[i] < sequence[right]) ++i;
+        while (i < right && sequence[i] < sequence[right]) ++i;
 
         int j = i;
         while (j < right) {
             ++j;
             if (sequence[j] < sequence[right]) return false;
         }
-        return judge(sequence,left,i-1)&&judge(sequence,i,right-1);
+        return judge(sequence, left, i - 1) && judge(sequence, i, right - 1);
     }
 
     @Test
     public void testVerifySquenceOfBST() {
-        assertTrue(getInstance().VerifySquenceOfBST(new int[]{2,4,3,6,8,7,5}));
-        assertTrue(!getInstance().VerifySquenceOfBST(new int[]{7,4,6,5}));
-        assertTrue(!getInstance().VerifySquenceOfBST(new int[]{}));
+        assertTrue(getInstance().VerifySequenceOfBST(new int[]{2, 4, 3, 6, 8, 7, 5}));
+        assertTrue(!getInstance().VerifySequenceOfBST(new int[]{7, 4, 6, 5}));
+        assertTrue(!getInstance().VerifySequenceOfBST(new int[]{}));
     }
 
     /**
@@ -569,23 +571,9 @@ public class Solution {
      */
     public TreeNode reConstructBinaryTree(int[] pre, int[] in) {
         if (pre == null || in == null) return null;
-        return constructCore(pre, 0, pre.length - 1, in, 0, in.length - 1);
+        return TreeNode.constructCore(pre, 0, pre.length - 1, in, 0, in.length - 1);
     }
 
-    private TreeNode constructCore(int[] pre, int preStart, int preEnd, int[] in, int inStart, int inEnd) {
-        if (pre == null || preStart > preEnd || in == null || inStart > inEnd || pre.length <= 0 || in.length <= 0)
-            return null;
-        TreeNode root = new TreeNode(pre[preStart]);
-        int rootIndex = inStart;
-        while (in[rootIndex] != pre[preStart]) ++rootIndex;
-        int leftLength = rootIndex - inStart;
-        int rightLength = in.length - leftLength;
-        if (leftLength > 0)
-            root.left = constructCore(pre, preStart + 1, (preStart + 1) + (leftLength - 1), in, inStart, inStart + leftLength - 1);
-        if (rightLength > 0)
-            root.right = constructCore(pre, preStart + 1 + leftLength, preEnd, in, rootIndex + 1, inEnd);
-        return root;
-    }
 
     @Test
     public void testReConstructBinaryTree() {
@@ -642,5 +630,11 @@ public class Solution {
         assertTrue(getInstance().find(new int[][]{{1, 2, 3, 4}, {3, 4, 5, 6}, {4, 5, 6, 7}, {5, 6, 7, 8}}, 5));
         assertFalse(getInstance().find(new int[][]{}, 5));
         assertFalse(getInstance().find(new int[][]{{}}, 5));
+    }
+
+    public void reverse(byte[] bytes) {
+        for (int i = 0, j = bytes.length - 1; i < bytes.length; i++) {
+
+        }
     }
 }

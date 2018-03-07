@@ -16,30 +16,23 @@ public class BipartiteGraph {
     }
 
     public boolean isBipartite(int[][] graph) {
-        int[] color = new int[graph.length];
-        Stack<Integer> stack = new Stack<>();
-        int blue = 1;
-        int red = 2;
-        color[0] = blue;
+        int[] colors = new int[graph.length];
         for (int i = 0; i < graph.length; i++) {
-            int[] connectedNodes = graph[i];
-            for (int connectNode : connectedNodes) {
-                stack.add(connectNode);
+            if(colors[i]==0&&!validColor(graph,colors,i,1)){
+                return false;
             }
-            while (!stack.isEmpty()) {
-                int connectNode = stack.pop();
-                if(connectNode==i){
-                    continue;
-                }
-                System.out.println(connectNode);
-                for (int nextConnectNode : graph[connectNode]) {
-                    stack.add(nextConnectNode);
-                }
-                if (color[connectNode] != 0) {
-                    return false;
-                } else {
-                    color[connectNode] = color[i] == blue ? red : blue;
-                }
+        }
+        return true;
+    }
+
+    private boolean validColor(int[][] graph, int[] colors, int node, int colorToDraw) {
+        if(colors[node]!=0){
+            return colorToDraw==colors[node];
+        }
+        colors[node]=colorToDraw;
+        for(int nextNode:graph[node]){
+            if(!validColor(graph,colors,nextNode,colorToDraw==1?2:1)){
+                return false;
             }
         }
         return true;

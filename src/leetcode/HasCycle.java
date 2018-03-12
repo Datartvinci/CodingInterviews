@@ -11,6 +11,17 @@ public class HasCycle {
         }
     }
 
+    public void reverse(ListNode head){
+        ListNode x,y=head;
+        while(head!=null){
+            x=head.next;
+            head.next=y;
+            y=head;
+            head=x;
+        }
+        head=y;
+    }
+
     public boolean hasCycle(ListNode head) {
         if (head == null) {
             return false;
@@ -59,11 +70,11 @@ public class HasCycle {
         fast = head;
         slow = head;
         for (int i = 0; i < size; i++) {
-            fast=fast.next;
+            fast = fast.next;
         }
         while (slow != fast) {
-            slow=slow.next;
-            fast=fast.next;
+            slow = slow.next;
+            fast = fast.next;
         }
         return slow;
     }

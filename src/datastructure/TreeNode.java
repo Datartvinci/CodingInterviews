@@ -1,4 +1,4 @@
-package codeinterview.datastructure;
+package datastructure;
 
 /**
  * Created by John on 2016/10/15.

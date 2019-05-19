@@ -1,6 +1,6 @@
 package leetcode;
 
-import codeinterview.datastructure.TreeNode;
+import datastructure.TreeNode;
 
 import java.util.*;
 

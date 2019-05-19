@@ -1,15 +1,8 @@
 package leetcode;
 
-public class SameTree {
-    static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
+import datastructure.TreeNode;
 
-        TreeNode(int x) {
-            val = x;
-        }
-    }
+public class SameTree {
 
     public static void main(String[] args) {
         TreeNode rootA=new TreeNode(1);

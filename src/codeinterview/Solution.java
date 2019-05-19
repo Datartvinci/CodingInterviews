@@ -1,7 +1,7 @@
 package codeinterview;
 
-import codeinterview.datastructure.ListNode;
-import codeinterview.datastructure.TreeNode;
+import datastructure.ListNode;
+import datastructure.TreeNode;
 import org.junit.Test;
 
 import java.util.*;
